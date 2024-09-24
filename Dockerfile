@@ -1,19 +1,14 @@
 FROM kalilinux/kali-rolling
 
-# Leaving this here for now, but it's not needed
 ARG DISPLAY_NUMBER=1
 ENV DISPLAY=:$DISPLAY_NUMBER
 
-# Install the packages we need
-# Got lucky with this one, there was a ticket about this:
-# https://github.com/dnschneid/crouton/issues/4461 `xfce4 dbus-launch not found` in this version of the image so installing dbus-x11
 RUN apt-get update -y -q \
-  && apt-get install -y -q xvfb xfce4 xfce4-goodies tightvncserver net-tools curl openssh-server dbus-x11
+  && apt-get install -y -q zsh tightvncserver net-tools curl openssh-server
 
-RUN apt-get -y install zsh
 RUN apt-get -y install kali-linux-core kali-defaults kali-tools-web
 
-RUN apt-get -y install kali-desktop-xfce x11vnc xvfb novnc dbus-x11
+RUN apt-get -y install kali-desktop-xfce x11vnc xvfb xfce4 xfce4-goodies novnc dbus-x11
 
 RUN adduser kali
 RUN usermod -G sudo kali
