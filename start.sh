@@ -23,7 +23,7 @@ docker run -it -d --rm \
 
 sleep 5
 
-docker exec kali-linux-x-tor-vnc bash -c "Xvfb :1 -screen 0 1280x720x24 & \
+docker exec -d kali-linux-x-tor-vnc bash -c "Xvfb :1 -screen 0 1280x720x24 & \
     startxfce4 & \
     x11vnc -display :1 -xkb -forever -shared -repeat -listen 0.0.0.0 -nopw -reopen & \
     /usr/share/novnc/utils/novnc_proxy --listen 8081 --vnc localhost:5900"
