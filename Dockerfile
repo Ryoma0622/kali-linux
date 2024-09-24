@@ -10,16 +10,16 @@ RUN apt-get -y install kali-linux-core kali-defaults kali-tools-web
 
 RUN apt-get -y install kali-desktop-xfce x11vnc xvfb xfce4 xfce4-goodies novnc dbus-x11
 
+RUN apt-get -y install tor torbrowser-launcher python3 python3-pip
+
+COPY torrc /etc/tor/torrc
+
 RUN adduser kali
 RUN usermod -G sudo kali
-
-ENV DISPLAY=:1
 
 EXPOSE 5900
 EXPOSE 8081
 
-CMD Xvfb :1 -screen 0 1280x720x24 & \
-    startxfce4 & x11vnc -display :1 -xkb -forever -shared -repeat -listen 0.0.0.0 -nopw -reopen & \
-    /usr/share/novnc/utils/launch.sh --listen 8081 --vnc localhost:5900
+USER kali
 
-ENTRYPOINT /bin/bash
+ENTRYPOINT zsh
